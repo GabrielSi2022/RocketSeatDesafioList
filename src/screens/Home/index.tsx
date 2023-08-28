@@ -1,4 +1,5 @@
 import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import Task from "../../components/Task";
 
 export default function Home() {
   return (
@@ -24,7 +25,7 @@ export default function Home() {
           </TouchableOpacity>
         </View>
 
-        <View className="flex flex-row justify-between pt-8 pb-5 border-b border-[#333333]">
+        <View className="flex flex-row justify-between pt-8 pb-5 mb-5 border-b border-[#333333]">
           <View className="flex flex-row gap-2 items-center">
             <Text className="text-[#4EA8DE] text-[14px] font-bold">
               Criadas
@@ -41,6 +42,15 @@ export default function Home() {
               0
             </Text>
           </View>
+        </View>
+
+        <View>
+          <Task />
+          <Task />
+          <Task />
+          <Task />
+          <Task />
+          <Task />
         </View>
       </View>
     </View>
