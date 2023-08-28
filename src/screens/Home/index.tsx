@@ -23,6 +23,25 @@ export default function Home() {
             />
           </TouchableOpacity>
         </View>
+
+        <View className="flex flex-row justify-between pt-8 pb-5 border-b border-[#333333]">
+          <View className="flex flex-row gap-2 items-center">
+            <Text className="text-[#4EA8DE] text-[14px] font-bold">
+              Criadas
+            </Text>
+            <Text className="text-white text-[12px] font-bold bg-[#333333] px-2 rounded-[999px]">
+              0
+            </Text>
+          </View>
+          <View className="flex flex-row gap-2 items-center">
+            <Text className="text-[#8284FA] text-[14px] font-bold">
+              Concluídas
+            </Text>
+            <Text className="text-white text-[12px] font-bold bg-[#333333] px-2 rounded-[999px]">
+              0
+            </Text>
+          </View>
+        </View>
       </View>
     </View>
   );
