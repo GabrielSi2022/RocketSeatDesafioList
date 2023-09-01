@@ -14,6 +14,9 @@ export default function Home() {
   const [tarefas, setTarefas] = useState<string[]>([]);
   const [tarefasName, setTarefasName] = useState("");
 
+  const [countTasks, setCountTasks] = useState(0);
+  const [countTasksCompleted, setCountTasksCompleted] = useState(0);
+
   function handleTaskAdd() {
     if (tarefas.includes(tarefasName)) {
       return Alert.alert(
@@ -28,16 +31,19 @@ export default function Home() {
 
     setTarefas((prevState) => [...prevState, tarefasName]);
     setTarefasName("");
+    setCountTasks(countTasks + 1);
   }
 
   function handleTaskRemove(task: string) {
     Alert.alert("Remover Tarefa", `Remover a Tarefa ${task}?`, [
       {
         text: "Sim",
-        onPress: () =>
+        onPress: () => {
           setTarefas((prevState) =>
             prevState.filter((tarefas) => tarefas !== task)
-          ),
+          );
+          setCountTasks(countTasks - 1);
+        },
       },
 
       {
@@ -80,7 +86,7 @@ export default function Home() {
               Criadas
             </Text>
             <Text className="text-white text-[12px] font-bold bg-[#333333] px-2 rounded-[999px]">
-              0
+              {countTasks}
             </Text>
           </View>
           <View className="flex flex-row gap-2 items-center">
@@ -88,7 +94,7 @@ export default function Home() {
               Concluídas
             </Text>
             <Text className="text-white text-[12px] font-bold bg-[#333333] px-2 rounded-[999px]">
-              0
+              {countTasksCompleted}
             </Text>
           </View>
         </View>

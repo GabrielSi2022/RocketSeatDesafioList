@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
@@ -7,6 +8,7 @@ type ITask = {
 };
 
 export default function Task({ task, onRemove }: ITask) {
+  const [countTasksCompleted, setCountTasksCompleted] = useState(0);
   return (
     <View className="mb-3">
       <View className=" flex flex-row justify-between items-center p-3 h-16 bg-[#262626] rounded-lg border border-[#333333]">
@@ -18,7 +20,15 @@ export default function Task({ task, onRemove }: ITask) {
           text={task}
           iconStyle={{ borderColor: "blue" }}
           innerIconStyle={{ borderWidth: 2 }}
-          onPress={(isChecked: boolean) => {}}
+          onPress={(isChecked: boolean) => {
+            if (isChecked === true) {
+              setCountTasksCompleted(countTasksCompleted + 1);
+            }
+
+            if (isChecked === false) {
+              setCountTasksCompleted(countTasksCompleted - 1);
+            }
+          }}
         />
 
         <TouchableOpacity onPress={onRemove}>
