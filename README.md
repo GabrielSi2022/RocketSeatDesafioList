@@ -10,7 +10,7 @@
  <a href="#-Funcionalidades">Funcionalidades</a> • 
  <a href="#-Layout">Layout</a> •  
  <a href="#-como-executar-o-projeto">Executando</a> • 
- <a href="#-tecnologias">Tecnologias</a> • 
+ <a href="#-tecnologias">Tecnologias</a> 
 </p>
 
 <!--Sobre o projeto-->
