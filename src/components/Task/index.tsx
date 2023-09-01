@@ -1,28 +1,29 @@
 import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 
-export default function Task() {
+type ITask = {
+  task: string;
+  onRemove: () => void;
+};
+
+export default function Task({ task, onRemove }: ITask) {
   return (
-    <View
-      className="flex flex-row gap-4 max-w-[320px] justify-between items-center
-        mb-3             "
-    >
-      <View className="bg-[#262626] ">
+    <View className="mb-3">
+      <View className=" flex flex-row justify-between items-center p-3 h-16 bg-[#262626] rounded-lg border border-[#333333]">
         <BouncyCheckbox
-          size={20}
+          className="max-w-[337]"
+          size={17}
           fillColor="#5E60CE"
           unfillColor="transparent"
-          text="Integer urna interdum massa libero auctor neque turpis turpis semper."
+          text={task}
           iconStyle={{ borderColor: "blue" }}
           innerIconStyle={{ borderWidth: 2 }}
           onPress={(isChecked: boolean) => {}}
         />
-      </View>
 
-      <View>
-        <TouchableOpacity className="bg-[#262626]">
+        <TouchableOpacity onPress={onRemove}>
           <Image
-            className="w-[15px] h-[15px] "
+            className="w-[18px] h-[18px] "
             source={require("../../../assets/Trash.png")}
           />
         </TouchableOpacity>
