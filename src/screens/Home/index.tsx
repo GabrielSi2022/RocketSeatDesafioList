@@ -14,8 +14,7 @@ export default function Home() {
   const [tarefas, setTarefas] = useState<string[]>([]);
   const [tarefasName, setTarefasName] = useState("");
 
-  const [countTasks, setCountTasks] = useState(0);
-  const [countTasksCompleted, setCountTasksCompleted] = useState(0);
+  const totalTasks = tarefas.length;
 
   function handleTaskAdd() {
     if (tarefas.includes(tarefasName)) {
@@ -31,7 +30,6 @@ export default function Home() {
 
     setTarefas((prevState) => [...prevState, tarefasName]);
     setTarefasName("");
-    setCountTasks(countTasks + 1);
   }
 
   function handleTaskRemove(task: string) {
@@ -42,7 +40,6 @@ export default function Home() {
           setTarefas((prevState) =>
             prevState.filter((tarefas) => tarefas !== task)
           );
-          setCountTasks(countTasks - 1);
         },
       },
 
@@ -86,7 +83,7 @@ export default function Home() {
               Criadas
             </Text>
             <Text className="text-white text-[12px] font-bold bg-[#333333] px-2 rounded-[999px]">
-              {countTasks}
+              {totalTasks}
             </Text>
           </View>
           <View className="flex flex-row gap-2 items-center">
@@ -94,7 +91,7 @@ export default function Home() {
               Concluídas
             </Text>
             <Text className="text-white text-[12px] font-bold bg-[#333333] px-2 rounded-[999px]">
-              {countTasksCompleted}
+              {0}
             </Text>
           </View>
         </View>
