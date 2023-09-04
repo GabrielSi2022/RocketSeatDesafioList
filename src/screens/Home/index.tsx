@@ -8,41 +8,77 @@ import {
   FlatList,
   Alert,
 } from "react-native";
-import Task from "../../components/Task";
+
+import GenerateUUID from "react-native-uuid";
+
+import { Task } from "../../components/Task";
+
+interface ITask {
+  id: string;
+  title: string;
+  completed?: boolean;
+}
 
 export default function Home() {
-  const [tarefas, setTarefas] = useState<string[]>([]);
+  const [tarefas, setTarefas] = useState<ITask[]>([]);
   const [tarefasName, setTarefasName] = useState("");
 
   const totalTasks = tarefas.length;
+  const totalCompletedTasks = tarefas.filter(
+    (task) => task.completed === true
+  ).length;
 
   function handleTaskAdd() {
-    if (tarefas.includes(tarefasName)) {
-      return Alert.alert(
-        "Erro ao Adicionar Tarefa",
-        "Está Tarefa já está registrada"
-      );
-    }
+    // if (tarefas.includes(tarefasName)) {
+    //   return Alert.alert(
+    //     "Erro ao Adicionar Tarefa",
+    //     "Está Tarefa já está registrada"
+    //   );
+    // }
 
-    if (tarefasName == "") {
+    if (tarefasName === "") {
       return Alert.alert("Erro", "Campo Vazio");
     }
 
-    setTarefas((prevState) => [...prevState, tarefasName]);
+    setTarefas((prevState) => [
+      ...prevState,
+      { id: String(GenerateUUID.v4()), title: tarefasName, completed: true },
+    ]);
     setTarefasName("");
   }
 
-  function handleTaskRemove(task: string) {
-    Alert.alert("Remover Tarefa", `Remover a Tarefa ${task}?`, [
+  function handleTaskRemove({ id, title }: ITask) {
+    Alert.alert("Remover Tarefa", `Remover a Tarefa ${title}?`, [
       {
         text: "Sim",
         onPress: () => {
           setTarefas((prevState) =>
-            prevState.filter((tarefas) => tarefas !== task)
+            prevState.filter((tarefa) => tarefa.id !== id)
           );
         },
       },
+      {
+        text: "Não",
+        style: "cancel",
+      },
+    ]);
+  }
+  function handleTaskChecked({ id, title }: ITask) {
+    Alert.alert("Completar Tarefa", `Completar a Tarefa ${title}?`, [
+      {
+        text: "Sim",
+        onPress: () => {
+          setTarefas((prevState) =>
+            prevState.map((tarefa) => {
+              let NovaTarefa = tarefa;
+              if (tarefa.id === id)
+                NovaTarefa.completed = !NovaTarefa.completed;
 
+              return NovaTarefa;
+            })
+          );
+        },
+      },
       {
         text: "Não",
         style: "cancel",
@@ -91,19 +127,24 @@ export default function Home() {
               Concluídas
             </Text>
             <Text className="text-white text-[12px] font-bold bg-[#333333] px-2 rounded-[999px]">
-              {0}
+              {totalCompletedTasks}
             </Text>
           </View>
         </View>
 
         <FlatList
           data={tarefas}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
             <Task
-              key={item}
+              key={item.id}
               task={item}
-              onRemove={() => handleTaskRemove(item)}
+              onRemove={() =>
+                handleTaskRemove({ id: item.id, title: item.title })
+              }
+              onChecked={() =>
+                handleTaskChecked({ id: item.id, title: item.title })
+              }
             />
           )}
           showsVerticalScrollIndicator={false}
